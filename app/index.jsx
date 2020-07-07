@@ -7,6 +7,7 @@ import {
   Button,
 } from 'react-native';
 import SelectPicker from 'react-native-form-select-picker';
+import Slider from '@react-native-community/slider';
 import styles from './styles';
 
 export class App extends Component {
@@ -16,6 +17,7 @@ export class App extends Component {
     this.state = {
       data: [],
       selectedValue: undefined,
+      sliderValue: undefined,
     };
   }
 
@@ -58,6 +60,12 @@ export class App extends Component {
     });
   };
 
+  _onSliderValueChange = (value) => {
+    this.setState({
+      sliderValue: value,
+    });
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -87,6 +95,17 @@ export class App extends Component {
           color="#365899"
           onPress={() => this._onButtonPress()}
           title="Open in Chrome "
+        />
+
+        <Text style={styles.sliderSelectionText}>
+          Your Slider Value is: {this.state.sliderValue}
+        </Text>
+        <Slider
+          maximumValue={100}
+          minimumValue={0}
+          onSlidingComplete={(value) => this._onSliderValueChange(value)}
+          onValueChange={(value) => this._onSliderValueChange(value)}
+          step={3}
         />
       </View>
     );

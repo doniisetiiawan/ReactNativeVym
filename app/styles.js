@@ -13,6 +13,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#365899',
   },
+  sliderSelectionText: {
+    alignSelf: 'center',
+    color: '#365899',
+    marginTop: 20,
+  },
   text: {
     alignSelf: 'center',
     color: '#365899',
