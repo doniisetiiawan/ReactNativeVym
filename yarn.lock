@@ -5154,6 +5154,11 @@ react-native-appearance@~0.3.3:
     invariant "^2.2.4"
     use-subscription "^1.0.0"
 
+react-native-form-select-picker@^0.0.81:
+  version "0.0.81"
+  resolved "https://registry.yarnpkg.com/react-native-form-select-picker/-/react-native-form-select-picker-0.0.81.tgz#1091dedb041332f5441c28e546343f4f729a1bb1"
+  integrity sha512-KiCFIjJQIPT2E3caR5AK8GTijnWFxCHKS1eka56xuKo8cF7b/yTfnqIPs8d1tE08/YnhwMiA0bJilKOGTvJpog==
+
 react-native-safe-area-context@~3.0.7:
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-3.0.7.tgz#0f53de7a30d626d82936000f3f6db374ecc4b800"

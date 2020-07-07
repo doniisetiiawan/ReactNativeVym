@@ -6,7 +6,7 @@ import {
   View,
   Platform, StatusBar,
 } from 'react-native';
-import Fetch from './app/fetch';
+import Fetch from './app/index';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,7 +28,6 @@ export default function App() {
         Open up App.js to start working on your app!
       </Text>
       <Fetch />
-      {/* eslint-disable-next-line react/style-prop-object */}
     </View>
   );
 }
