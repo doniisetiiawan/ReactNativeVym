@@ -6,6 +6,7 @@ import {
   View,
   Platform, StatusBar,
 } from 'react-native';
+import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import Fetch from './app/index';
 
 const styles = StyleSheet.create({
@@ -23,11 +24,16 @@ const styles = StyleSheet.create({
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>
-        Open up App.js to start working on your app!
-      </Text>
-      <Fetch />
-    </View>
+    <ActionSheetProvider>
+
+      <View style={styles.container}>
+        <Text>
+          Open up App.js to start working on your app!
+        </Text>
+
+        <Fetch />
+      </View>
+    </ActionSheetProvider>
+
   );
 }

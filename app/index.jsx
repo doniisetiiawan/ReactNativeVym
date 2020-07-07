@@ -1,16 +1,19 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
-  Text,
-  View,
-  Vibration,
-  Linking,
   Button,
+  Linking,
+  Text,
+  Vibration,
+  View,
+  Share,
 } from 'react-native';
 import SelectPicker from 'react-native-form-select-picker';
 import Slider from '@react-native-community/slider';
+import { connectActionSheet } from '@expo/react-native-action-sheet';
 import styles from './styles';
 
-export class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
 
@@ -66,6 +69,59 @@ export class App extends Component {
     });
   };
 
+  _renderActionAndShareSheets = () => (
+    <View>
+      <Button
+        color="#365899"
+        onPress={() => this._openActionSheet()}
+        title="Open Action Sheet"
+      />
+      <Button
+        color="#365899"
+        onPress={() => this._openShareSheet()}
+        title="Open Share Sheet"
+      />
+    </View>
+  );
+
+  _openActionSheet = () => {
+    const options = [
+      'One',
+      'Two',
+      'Three',
+      'Cancel',
+      'Destroy',
+    ];
+
+    this.props.showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex: 3,
+        destructiveButtonIndex: 4,
+        title: 'Action Sheet Options',
+        message: 'Please select from the following options',
+      },
+      (index) => {
+        this._onActionSheetOptionSelected(index);
+      },
+    );
+  };
+
+  _onActionSheetOptionSelected = (index) => {
+    alert(`The index you selected is: ${index}`);
+  };
+
+  _openShareSheet = () => {
+    Share.share(
+      {
+        // url: 'https://facebook.github.io/react-native',
+        message:
+          "Check out the React Native documentation here, it's really helpful!",
+        // dialogTitle: 'Link to React Native docs',
+      },
+    );
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -107,9 +163,17 @@ export class App extends Component {
           onValueChange={(value) => this._onSliderValueChange(value)}
           step={3}
         />
+
+        {this._renderActionAndShareSheets()}
       </View>
     );
   }
 }
 
-export default App;
+const ConnectedApp = connectActionSheet(App);
+
+export default ConnectedApp;
+
+App.propTypes = {
+  showActionSheetWithOptions: PropTypes.func.isRequired,
+};
