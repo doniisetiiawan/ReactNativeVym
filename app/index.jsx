@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View, Vibration } from 'react-native';
+import {
+  Text,
+  View,
+  Vibration,
+  Linking,
+  Button,
+} from 'react-native';
 import SelectPicker from 'react-native-form-select-picker';
 import styles from './styles';
 
@@ -23,7 +29,7 @@ export class App extends Component {
         });
       });
 
-    this._onDataAvailable();
+    // this._onDataAvailable();
   }
 
   _onValueChange = (value) => {
@@ -34,6 +40,22 @@ export class App extends Component {
 
   _onDataAvailable = () => {
     Vibration.vibrate([1111, 555, 1111, 555], false);
+  };
+
+  _onButtonPress = () => {
+    const facebookURL = 'fb://notifications';
+
+    Linking.canOpenURL(facebookURL).then((isAvailable) => {
+      if (isAvailable) {
+        Linking.openURL(facebookURL);
+      }
+
+      if (!isAvailable) {
+        Linking.openURL(
+          'https://facebook.github.io/react-native',
+        );
+      }
+    });
   };
 
   render() {
@@ -60,6 +82,12 @@ export class App extends Component {
             />
           ))}
         </SelectPicker>
+
+        <Button
+          color="#365899"
+          onPress={() => this._onButtonPress()}
+          title="Open in Chrome "
+        />
       </View>
     );
   }
