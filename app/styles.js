@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
   picker: {
     marginLeft: 10,
     marginRight: 10,
+    alignSelf: 'center',
   },
   pickerSelectionText: {
     alignSelf: 'center',

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Vibration } from 'react-native';
 import SelectPicker from 'react-native-form-select-picker';
 import styles from './styles';
 
@@ -22,12 +22,18 @@ export class App extends Component {
           data: result,
         });
       });
+
+    this._onDataAvailable();
   }
 
   _onValueChange = (value) => {
     this.setState({
       selectedValue: value,
     });
+  };
+
+  _onDataAvailable = () => {
+    Vibration.vibrate([1111, 555, 1111, 555], false);
   };
 
   render() {
@@ -44,17 +50,15 @@ export class App extends Component {
         <SelectPicker
           placeholder="Select..."
           onValueChange={(value) => this._onValueChange(value)}
+          style={styles.picker}
         >
-          {this.state.data.map((element) => {
-            console.log(element.id);
-            return (
-              <SelectPicker.Item
-                key={element.id}
-                label={element.name}
-                value={element.name}
-              />
-            );
-          })}
+          {this.state.data.map((element) => (
+            <SelectPicker.Item
+              key={element.id}
+              label={element.name}
+              value={element.name}
+            />
+          ))}
         </SelectPicker>
       </View>
     );
