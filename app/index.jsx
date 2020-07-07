@@ -35,6 +35,14 @@ class App extends Component {
       });
 
     // this._onDataAvailable();
+
+    navigator.geolocation.getCurrentPosition(
+      (positionSuccess) => {
+        this.setState({
+          location: positionSuccess,
+        });
+      },
+    );
   }
 
   _onValueChange = (value) => {
@@ -112,14 +120,34 @@ class App extends Component {
   };
 
   _openShareSheet = () => {
-    Share.share(
-      {
-        // url: 'https://facebook.github.io/react-native',
-        message:
-          "Check out the React Native documentation here, it's really helpful!",
-        // dialogTitle: 'Link to React Native docs',
+    Share.share({
+      // url: 'https://facebook.github.io/react-native',
+      message:
+        "Check out the React Native documentation here, it's really helpful!",
+      // dialogTitle: 'Link to React Native docs',
+    });
+  };
+
+  _onBeginWatchPositionButtonPress = () => {
+    const watchID = navigator.geolocation.watchPosition(
+      (watchSuccess) => {
+        this.setState({
+          location: watchSuccess,
+        });
       },
     );
+
+    this.setState({
+      watchID,
+    });
+  };
+
+  _onCancelWatchPositionButtonPress = () => {
+    navigator.geolocation.clearWatch(this.state.watchID);
+
+    this.setState({
+      watchID: undefined,
+    });
   };
 
   render() {
@@ -165,6 +193,30 @@ class App extends Component {
         />
 
         {this._renderActionAndShareSheets()}
+
+        <Text style={styles.latLongText}>
+          Your Latitude is:{' '}
+          {this.state.location
+            ? this.state.location.coords.latitude
+            : 'undefined'}
+        </Text>
+        <Text style={styles.latLongText}>
+          Your Longitude is:{' '}
+          {this.state.location
+            ? this.state.location.coords.longitude
+            : 'undefined'}
+        </Text>
+        <Button
+          color="#80B546"
+          onPress={() => this._onBeginWatchPositionButtonPress()}
+          title="Start Watching Position"
+        />
+        <Button
+          color="#80B546"
+          disabled={!this.state.watchID}
+          onPress={() => this._onCancelWatchPositionButtonPress()}
+          title="Cancel Watching Position"
+        />
       </View>
     );
   }

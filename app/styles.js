@@ -4,6 +4,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  latLongText: {
+    alignSelf: 'center',
+    color: '#80B546',
+  },
   picker: {
     marginLeft: 10,
     marginRight: 10,
